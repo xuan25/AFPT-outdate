@@ -334,7 +334,7 @@
             <TextBlock x:Name="AboutBox" Margin="0,0,14,8" FontSize="12" Foreground="#a0a0a0" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
             <TextBlock x:Name="LogLable" Margin="14,0,0,8" FontSize="12" Foreground="#a0a0a0" Text="日志模式" VerticalAlignment="Bottom" HorizontalAlignment="Left" Visibility="{Binding ElementName=LogBox, Path=Visibility}" Opacity="{Binding ElementName=LogBox, Path=Opacity}"/>
         </Grid>
-        <Grid x:Name="Description" Grid.Row="0" Grid.RowSpan="3" Visibility="Hidden">
+        <Grid x:Name="Description" Grid.Row="0" Grid.RowSpan="3" Visibility="Visible">
             <Grid PreviewMouseLeftButtonDown="Header_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="Header_PreviewMouseLeftButtonUp" Background="#4c000000"/>
             <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Height="280" Width="310" Background="#fbfbfb">
                 <Grid.OpacityMask>
@@ -352,7 +352,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="37"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="55"/>
+                        <RowDefinition Height="45"/>
                     </Grid.RowDefinitions>
                     <Grid x:Name="CloseDescriptionBtn" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,4,0" PreviewMouseLeftButtonDown="CloseDescriptionBtn_PreviewMouseLeftButtonDown" Cursor="Hand">
                         <Path Fill="#fbfbfb">
@@ -397,19 +397,19 @@
                             <RowDefinition Height="120"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0" Margin="20,0,20,0">
-                            <TextBlock Text="将单个或多个文件拖入软件的环形区域，即可进行相应的处理。" Foreground="#666666" TextWrapping="Wrap" FontSize="14" LineHeight="6"/>
-                            <TextBlock Text="输出文件与源文件在相同目录中。" Foreground="#666666" TextWrapping="Wrap" FontSize="14" LineHeight="6" Margin="0,40,0,0"/>
+                            <TextBlock Text="Drag single or multiple files into the ring area for appropriate processing." Foreground="#666666" TextWrapping="Wrap" FontSize="14" LineHeight="6"/>
+                            <TextBlock Text="The output file will be in the same directory as the source file." Foreground="#666666" TextWrapping="Wrap" FontSize="14" LineHeight="6" Margin="0,40,0,0"/>
                         </Grid>
                         <Image Source="Icons\Description.png" Grid.Row="1" Stretch="None"/>
                     </Grid>
                     <Grid Grid.Row="2">
-                        <CheckBox x:Name="DescriptionCkb" Content="不再显示该提示。" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" Foreground="#aaaaaa" BorderBrush="#aaaaaa" />
+                        <CheckBox x:Name="DescriptionCkb" Content="Do not show this again" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" Foreground="#aaaaaa" BorderBrush="#aaaaaa" />
                     </Grid>
 
                 </Grid>
             </Grid>
         </Grid>
-        <Grid x:Name="Initialization" Grid.Row="0" Grid.RowSpan="3" Visibility="Hidden">
+        <Grid x:Name="Initialization" Grid.Row="0" Grid.RowSpan="3" Visibility="Visible">
             <Grid PreviewMouseLeftButtonDown="Header_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="Header_PreviewMouseLeftButtonUp" Background="#4c000000"/>
             <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Height="80" Width="310" Background="#fbfbfb">
                 <Grid.OpacityMask>
@@ -423,7 +423,7 @@
                         </DrawingBrush.Drawing>
                     </DrawingBrush>
                 </Grid.OpacityMask>
-                <TextBlock Text="正在初始化..." FontSize="30" Foreground="#666666" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="Initializing..." FontSize="30" Foreground="#666666" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Grid>
         </Grid>
     </Grid>
