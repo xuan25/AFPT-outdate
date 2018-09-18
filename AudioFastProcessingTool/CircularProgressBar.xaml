@@ -1,0 +1,182 @@
+﻿<UserControl x:Class="AudioFastProcessingTool.CircularProgressBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AudioFastProcessingTool"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="200" SizeChanged="UserControl_SizeChanged">
+    <UserControl.Resources>
+        <local:BackgroundDiameter x:Key="BackgroundDiameter"/>
+        <local:CenterPoint x:Key="CenterPoint"/>
+        <local:StartPointR x:Key="StartPointR"/>
+        <local:StartPointL x:Key="StartPointL"/>
+        <local:EndSizeR x:Key="EndSizeR"/>
+        <local:EndSizeL x:Key="EndSizeL"/>
+        <local:EndPointR x:Key="EndPointR"/>
+        <local:EndPointL x:Key="EndPointL"/>
+        <local:HeaderDiameter x:Key="HeaderDiameter"/>
+        <local:HeaderMargin x:Key="HeaderMargin"/>
+        <local:MaskMargin x:Key="MaskMargin"/>
+        <local:MaskInner x:Key="MaskInner"/>
+        <local:MaskOutter x:Key="MaskOutter"/>
+        <local:Smaller x:Key="Smaller"/>
+    </UserControl.Resources>
+    <Grid x:Name="OutterGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid x:Name="MainG" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Grid.Height>
+                <MultiBinding Converter="{StaticResource Smaller}">
+                    <Binding ElementName="OutterGrid" Path="ActualWidth"/>
+                    <Binding ElementName="OutterGrid" Path="ActualHeight"/>
+                </MultiBinding>
+            </Grid.Height>
+            <Grid.Width>
+                <MultiBinding Converter="{StaticResource Smaller}">
+                    <Binding ElementName="OutterGrid" Path="ActualWidth"/>
+                    <Binding ElementName="OutterGrid" Path="ActualHeight"/>
+                </MultiBinding>
+            </Grid.Width>
+            <Grid.OpacityMask>
+                <VisualBrush>
+                    <VisualBrush.Visual>
+                        <Path Fill="Blue">
+                            <Path.Data>
+                                <GeometryGroup>
+                                    <!--Center为圆心的坐标，RadiusX、RadiusY分别为X、Y两轴的半径-->
+                                    <EllipseGeometry x:Name="MaskOutter">
+                                        <EllipseGeometry.Center>
+                                            <MultiBinding Converter="{StaticResource CenterPoint}">
+                                                <Binding ElementName="MainG" Path="ActualWidth"/>
+                                                <Binding ElementName="MainG" Path="ActualHeight"/>
+                                            </MultiBinding>
+                                        </EllipseGeometry.Center>
+                                        <EllipseGeometry.RadiusX>
+                                            <MultiBinding Converter="{StaticResource MaskOutter}">
+                                                <Binding ElementName="MainG" Path="ActualWidth"/>
+                                                <Binding ElementName="MainG" Path="ActualHeight"/>
+                                            </MultiBinding>
+                                        </EllipseGeometry.RadiusX>
+                                        <EllipseGeometry.RadiusY>
+                                            <MultiBinding Converter="{StaticResource MaskOutter}">
+                                                <Binding ElementName="MainG" Path="ActualWidth"/>
+                                                <Binding ElementName="MainG" Path="ActualHeight"/>
+                                            </MultiBinding>
+                                        </EllipseGeometry.RadiusY>
+                                    </EllipseGeometry>
+                                    <EllipseGeometry x:Name="MaskInner" RadiusX="80" RadiusY="80">
+                                        <EllipseGeometry.Center>
+                                            <MultiBinding Converter="{StaticResource CenterPoint}">
+                                                <Binding ElementName="MainG" Path="ActualWidth"/>
+                                                <Binding ElementName="MainG" Path="ActualHeight"/>
+                                            </MultiBinding>
+                                        </EllipseGeometry.Center>
+                                    </EllipseGeometry>
+                                </GeometryGroup>
+                            </Path.Data>
+                        </Path>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+
+            </Grid.OpacityMask>
+            <!--BG-->
+            <Ellipse x:Name="Track" VerticalAlignment="Top" HorizontalAlignment="Left" Fill="Transparent" Visibility="Visible">
+                <Ellipse.Height>
+                    <MultiBinding Converter="{StaticResource BackgroundDiameter}">
+                        <Binding ElementName="MainG" Path="ActualWidth"/>
+                        <Binding ElementName="MainG" Path="ActualHeight"/>
+                    </MultiBinding>
+                </Ellipse.Height>
+                <Ellipse.Width>
+                    <MultiBinding Converter="{StaticResource BackgroundDiameter}">
+                        <Binding ElementName="MainG" Path="ActualWidth"/>
+                        <Binding ElementName="MainG" Path="ActualHeight"/>
+                    </MultiBinding>
+                </Ellipse.Width>
+            </Ellipse>
+            <!--Bar-->
+            <Grid x:Name="Bar">
+                <!--main-->
+                <Path x:Name="PathR" Fill="DeepSkyBlue">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure x:Name="StartR" IsClosed="True">
+                                <PathFigure.StartPoint>
+                                    <MultiBinding Converter="{StaticResource CenterPoint}">
+                                        <Binding ElementName="MainG" Path="ActualWidth"/>
+                                        <Binding ElementName="MainG" Path="ActualHeight"/>
+                                    </MultiBinding>
+                                </PathFigure.StartPoint>
+                                <LineSegment Point="{Binding ElementName=StartR, Path=StartPoint, Converter={StaticResource StartPointR}}"/>
+                                <ArcSegment x:Name="EndR" Size="{Binding ElementName=StartR, Path=StartPoint, Converter={StaticResource EndSizeR}}" Point="{Binding ElementName=StartR, Path=StartPoint, Converter={StaticResource EndPointR}}" SweepDirection="Clockwise"/>
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+                <Path x:Name="PathL" Fill="DeepSkyBlue">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure x:Name="StartL" IsClosed="True">
+                                <PathFigure.StartPoint>
+                                    <MultiBinding Converter="{StaticResource CenterPoint}">
+                                        <Binding ElementName="MainG" Path="ActualWidth"/>
+                                        <Binding ElementName="MainG" Path="ActualHeight"/>
+                                    </MultiBinding>
+                                </PathFigure.StartPoint>
+                                <LineSegment Point="{Binding ElementName=StartL, Path=StartPoint, Converter={StaticResource StartPointL}}"/>
+                                <ArcSegment x:Name="EndL" Size="{Binding ElementName=StartL, Path=StartPoint, Converter={StaticResource EndSizeL}}" Point="{Binding ElementName=StartL, Path=StartPoint, Converter={StaticResource EndPointL}}" SweepDirection="Clockwise"/>
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+                <!--hender-->
+                <Ellipse VerticalAlignment="Top" HorizontalAlignment="Left" Fill="{Binding ElementName=Header, Path=Fill}" Opacity="{Binding ElementName=Header, Path=Opacity}">
+                    <Ellipse.Width>
+                        <MultiBinding Converter="{StaticResource HeaderDiameter}">
+                            <Binding ElementName="MainG" Path="ActualWidth"/>
+                            <Binding ElementName="MainG" Path="ActualHeight"/>
+                            <Binding ElementName="MaskInner" Path="RadiusX"/>
+                        </MultiBinding>
+                    </Ellipse.Width>
+                    <Ellipse.Height>
+                        <MultiBinding Converter="{StaticResource HeaderDiameter}">
+                            <Binding ElementName="MainG" Path="ActualWidth"/>
+                            <Binding ElementName="MainG" Path="ActualHeight"/>
+                            <Binding ElementName="MaskInner" Path="RadiusX"/>
+                        </MultiBinding>
+                    </Ellipse.Height>
+                    <Ellipse.Margin>
+                        <MultiBinding Converter="{StaticResource HeaderMargin}">
+                            <Binding ElementName="MainG" Path="ActualWidth"/>
+                            <Binding ElementName="MainG" Path="ActualHeight"/>
+                            <Binding ElementName="MaskInner" Path="RadiusX"/>
+                        </MultiBinding>
+                    </Ellipse.Margin>
+                </Ellipse>
+                <Ellipse x:Name="Header" VerticalAlignment="Top" HorizontalAlignment="Left" Fill="DeepSkyBlue">
+                    <Ellipse.Width>
+                        <MultiBinding Converter="{StaticResource HeaderDiameter}">
+                            <Binding ElementName="MainG" Path="ActualWidth"/>
+                            <Binding ElementName="MainG" Path="ActualHeight"/>
+                            <Binding ElementName="MaskInner" Path="RadiusX"/>
+                        </MultiBinding>
+                    </Ellipse.Width>
+                    <Ellipse.Height>
+                        <MultiBinding Converter="{StaticResource HeaderDiameter}">
+                            <Binding ElementName="MainG" Path="ActualWidth"/>
+                            <Binding ElementName="MainG" Path="ActualHeight"/>
+                            <Binding ElementName="MaskInner" Path="RadiusX"/>
+                        </MultiBinding>
+                    </Ellipse.Height>
+                    <Ellipse.Margin>
+                        <MultiBinding Converter="{StaticResource HeaderMargin}">
+                            <Binding ElementName="MainG" Path="ActualWidth"/>
+                            <Binding ElementName="MainG" Path="ActualHeight"/>
+                            <Binding ElementName="MaskInner" Path="RadiusX"/>
+                        </MultiBinding>
+                    </Ellipse.Margin>
+                </Ellipse>
+            </Grid>
+        </Grid>
+    </Grid>
+    
+</UserControl>

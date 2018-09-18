@@ -1,0 +1,430 @@
+﻿<Window x:Class="AudioFastProcessingTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AudioFastProcessingTool"
+        mc:Ignorable="d"
+        Title="AFPT" Height="372" Width="852" MinHeight="372" MinWidth="852" Background="Transparent" AllowsTransparency="True" WindowStyle="None" Closing="Window_Closing" KeyDown="Window_KeyDown" Loaded="Window_Loaded" ResizeMode="CanResizeWithGrip" BorderThickness="16" StateChanged="Window_StateChanged">
+    <Window.Effect>
+        <DropShadowEffect x:Name="DropShadow" ShadowDepth="1" BlurRadius="16" Direction="270" Opacity="0.5" Color="#FF211613"/>
+    </Window.Effect>
+    <Window.Resources>
+        <Storyboard x:Key="MinimizeBtnMouseEnter">
+            <ColorAnimation Storyboard.TargetName="MinimizeBtnBackground" 
+                            Storyboard.TargetProperty="(Fill).(SolidColorBrush.Color)"
+                            BeginTime="00:00:00.000" To="#7e8ba0"
+                            Duration="00:00:00.200"/>
+            <ColorAnimation Storyboard.TargetName="MinimizeBtnIcon" 
+                            Storyboard.TargetProperty="(Fill).(SolidColorBrush.Color)"
+                            BeginTime="00:00:00.000" To="#ffffff"
+                            Duration="00:00:00.200"/>
+        </Storyboard>
+        <Storyboard x:Key="MinimizeBtnMouseLeave">
+            <ColorAnimation Storyboard.TargetName="MinimizeBtnBackground" 
+                            Storyboard.TargetProperty="(Fill).(SolidColorBrush.Color)"
+                            BeginTime="00:00:00.000" To="#404a58"
+                            Duration="00:00:00.200"/>
+            <ColorAnimation Storyboard.TargetName="MinimizeBtnIcon" 
+                            Storyboard.TargetProperty="(Fill).(SolidColorBrush.Color)"
+                            BeginTime="00:00:00.000" To="#404a58"
+                            Duration="00:00:00.200"/>
+        </Storyboard>
+        <Storyboard x:Key="CloseBtnMouseEnter">
+            <ColorAnimation Storyboard.TargetName="CloseBtnBackground" 
+                            Storyboard.TargetProperty="(Fill).(SolidColorBrush.Color)"
+                            BeginTime="00:00:00.000" To="#f3595b"
+                            Duration="00:00:00.200"/>
+            <ColorAnimation Storyboard.TargetName="CloseBtnIcon" 
+                            Storyboard.TargetProperty="(Fill).(SolidColorBrush.Color)"
+                            BeginTime="00:00:00.000" To="#ffffff"
+                            Duration="00:00:00.200"/>
+        </Storyboard>
+        <Storyboard x:Key="CloseBtnMouseLeave">
+            <ColorAnimation Storyboard.TargetName="CloseBtnBackground" 
+                            Storyboard.TargetProperty="(Fill).(SolidColorBrush.Color)"
+                            BeginTime="00:00:00.000" To="#404a58"
+                            Duration="00:00:00.200"/>
+            <ColorAnimation Storyboard.TargetName="CloseBtnIcon" 
+                            Storyboard.TargetProperty="(Fill).(SolidColorBrush.Color)"
+                            BeginTime="00:00:00.000" To="#999999"
+                            Duration="00:00:00.200"/>
+        </Storyboard>
+        <Storyboard x:Key="ShowLogBox">
+            <DoubleAnimation Storyboard.TargetName="LogBox"
+                             Storyboard.TargetProperty="Opacity"
+                             BeginTime="00:00:00.000" To="1"
+                             Duration="00:00:00.200"/>
+        </Storyboard>
+        <Storyboard x:Key="HideLogBox">
+            <DoubleAnimation Storyboard.TargetName="LogBox"
+                             Storyboard.TargetProperty="Opacity"
+                             BeginTime="00:00:00.000" To="0"
+                             Duration="00:00:00.200"/>
+        </Storyboard>
+
+        <local:OpacityMaskRect x:Key="OpacityMaskRect"/>
+
+        <Style x:Key="DGHeaderStyle" TargetType="{x:Type DataGrid}">
+            <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
+            <Setter Property="ColumnHeaderStyle" Value="{DynamicResource DGCHeaderStyle}"/>
+            <Setter Property="CellStyle" Value="{DynamicResource DGCellStyle}"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="LightGray"/>
+            <Setter Property="VerticalGridLinesBrush" Value="LightGray"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="SelectionUnit" Value="FullRow"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style x:Key="DGCHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0,0,1,1" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="Height" Value="23" />
+            <Setter Property="IsHitTestVisible" Value="False" />
+            <!--<Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E5F3FF"/>
+                </Trigger>
+                <Trigger Property="SortDirection" Value="Ascending">
+                    <Setter Property="Background" Value="#E5F3FF"/>
+                </Trigger>
+                <Trigger Property="SortDirection" Value="Descending">
+                    <Setter Property="Background" Value="#E5F3FF"/>
+                </Trigger>
+            </Style.Triggers>-->
+        </Style>
+        <Style x:Key="DGCellStyle" TargetType="DataGridCell">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="ToolTip" Value="{Binding Name}"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="12"/>
+            <EventSetter Event="MouseDoubleClick" Handler="DataGridCell_MouseDoubleClick"/>
+            <!--<Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="Background" Value="#CCE8FF"/>
+                </Trigger>
+            </Style.Triggers>-->
+        </Style>
+    </Window.Resources>
+
+    <Grid x:Name="MainGrid">
+        <Grid.OpacityMask>
+            <DrawingBrush>
+                <DrawingBrush.Drawing>
+                    <GeometryDrawing Brush="#ff000000">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry x:Name="MainMask" RadiusX="3" RadiusY="3">
+                                <RectangleGeometry.Rect>
+                                    <MultiBinding Converter="{StaticResource OpacityMaskRect}">
+                                        <Binding ElementName="MainGrid" Path="ActualWidth"/>
+                                        <Binding ElementName="MainGrid" Path="ActualHeight"/>
+                                    </MultiBinding>
+                                </RectangleGeometry.Rect>
+                            </RectangleGeometry>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingBrush.Drawing>
+            </DrawingBrush>
+        </Grid.OpacityMask>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="41"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="33"/>
+        </Grid.RowDefinitions>
+        <!--上-->
+        <Grid x:Name="Header" Background="#404a58" Grid.Row="0" PreviewMouseLeftButtonDown="Header_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="Header_PreviewMouseLeftButtonUp" PreviewMouseMove="Header_PreviewMouseMove">
+            <Border BorderThickness="0,0,0,1" BorderBrush="#1c2736"/>
+            <TextBlock x:Name="TitleBox" Text="AFPT" Margin="18,13,0,0" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="#ffffff"/>
+            <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Height="24" Width="64" Margin="0,8,5,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!--最小化-->
+                <Grid x:Name="MinimizeBtn" Grid.Column="0" HorizontalAlignment="Center">
+                    <Grid.Triggers>
+                        <EventTrigger RoutedEvent="Button.MouseEnter">
+                            <BeginStoryboard Storyboard="{StaticResource MinimizeBtnMouseEnter}"/>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Button.MouseLeave">
+                            <BeginStoryboard Storyboard="{StaticResource MinimizeBtnMouseLeave}"/>
+                        </EventTrigger>
+                    </Grid.Triggers>
+                    <Path x:Name="MinimizeBtnBackground" Fill="#404a58">
+                        <Path.Data>
+                            <PathGeometry>
+                                <PathFigure IsClosed="True" StartPoint="13,0">
+                                    <ArcSegment Point="1,12" Size="12,12"/>
+                                    <ArcSegment Point="13,24" Size="12,12"/>
+                                    <LineSegment Point="19,24"/>
+                                    <ArcSegment Point="31,12" Size="12,12"/>
+                                    <ArcSegment Point="19,0" Size="12,12"/>
+                                </PathFigure>
+                            </PathGeometry>
+                        </Path.Data>
+                    </Path>
+                    <Path x:Name="MinimizeBtnIcon" Fill="#404a58">
+                        <Path.Data>
+                            <PathGeometry>
+                                <PathFigure IsClosed="True" StartPoint="11,11">
+                                    <ArcSegment Point="10,12" Size="1,1"/>
+                                    <ArcSegment Point="11,13" Size="1,1"/>
+                                    <LineSegment Point="21,13"/>
+                                    <ArcSegment Point="22,12" Size="1,1"/>
+                                    <ArcSegment Point="21,11" Size="1,1"/>
+                                </PathFigure>
+                            </PathGeometry>
+                        </Path.Data>
+                    </Path>
+                </Grid>
+                <!--关闭-->
+                <Grid x:Name="CloseBtn" Grid.Column="1" HorizontalAlignment="Center">
+                    <Grid.Triggers>
+                        <EventTrigger RoutedEvent="Button.MouseEnter">
+                            <BeginStoryboard Storyboard="{StaticResource CloseBtnMouseEnter}"/>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Button.MouseLeave">
+                            <BeginStoryboard Storyboard="{StaticResource CloseBtnMouseLeave}"/>
+                        </EventTrigger>
+                    </Grid.Triggers>
+                    <Path x:Name="CloseBtnBackground" Fill="#404a58">
+                        <Path.Data>
+                            <PathGeometry>
+                                <PathFigure IsClosed="True" StartPoint="13,0">
+                                    <ArcSegment Point="1,12" Size="12,12"/>
+                                    <ArcSegment Point="13,24" Size="12,12"/>
+                                    <LineSegment Point="19,24"/>
+                                    <ArcSegment Point="31,12" Size="12,12"/>
+                                    <ArcSegment Point="19,0" Size="12,12"/>
+                                </PathFigure>
+                            </PathGeometry>
+                        </Path.Data>
+                    </Path>
+                    <Path x:Name="CloseBtnIcon" Fill="#999999">
+                        <Path.Data>
+                            <PathGeometry>
+                                <PathFigure IsClosed="True" StartPoint="12,6">
+                                    <ArcSegment Point="10,8" Size="1,1"/>
+                                    <LineSegment Point="20,18"/>
+                                    <ArcSegment Point="22,16" Size="1,1"/>
+                                </PathFigure>
+                            </PathGeometry>
+                        </Path.Data>
+                    </Path>
+                    <Path Fill="{Binding ElementName=CloseBtnIcon, Path=Fill}">
+                        <Path.Data>
+                            <PathGeometry>
+                                <PathFigure IsClosed="True" StartPoint="22,8">
+                                    <ArcSegment Point="20,6" Size="1,1"/>
+                                    <LineSegment Point="10,16"/>
+                                    <ArcSegment Point="12,18" Size="1,1"/>
+                                </PathFigure>
+                            </PathGeometry>
+                        </Path.Data>
+                    </Path>
+                </Grid>
+
+
+            </Grid>
+        </Grid>
+        <!--中-->
+        <Grid Grid.Row="1" Background="#fbfbfb">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="26"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="58"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="VocalGrid" Grid.Row="1" Grid.Column="1" PreviewDrop="VocalGrid_PreviewDrop" AllowDrop="True">
+                <local:CircularProgressBar x:Name="VocalProgressBar" TrackBrush="#e6e6e6" OutterBrush="#8fecd2" InnerRadius="70" Value="0" SizeChanged="ProgressBar_SizeChanged"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="Icons\Vocal.png" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="None"/>
+                    <TextBlock Text="Voice" FontSize="16" Foreground="#3134b9" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Grid>
+            </Grid>
+            <Grid x:Name="MusicGrid" Grid.Row="1" Grid.Column="3" PreviewDrop="MusicGrid_PreviewDrop" AllowDrop="True">
+                <local:CircularProgressBar x:Name="MusicProgressBar" TrackBrush="#e6e6e6" OutterBrush="#f182ab" InnerRadius="70" Value="0" SizeChanged="ProgressBar_SizeChanged"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="Icons\Music.png" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="None"/>
+                    <TextBlock Text="Music" FontSize="16" Foreground="#71052d" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Grid>
+            </Grid>
+            <Grid x:Name="MixedGrid" Grid.Row="1" Grid.Column="5" PreviewDrop="MixedGrid_PreviewDrop" AllowDrop="True">
+                <local:CircularProgressBar x:Name="MixedProgressBar" TrackBrush="#e6e6e6" OutterBrush="#ffc875" InnerRadius="70" Value="0" SizeChanged="ProgressBar_SizeChanged"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="Icons\Mixed.png" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="None"/>
+                    <TextBlock Text="Product" FontSize="16" Foreground="#673508" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="1">
+                <TextBlock x:Name="PropertyBox_Vocal1" Text="44100Hz 16Bit" Foreground="#404a58" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,6,0,0"/>
+                <TextBlock Text="Up to -6dB Mono" Foreground="#404a58" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="3">
+                <TextBlock x:Name="PropertyBox_Music1" Text="44100Hz 16Bit" Foreground="#404a58" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,6,0,0"/>
+                <TextBlock Text="Up to -6dB" Foreground="#404a58" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+            </Grid>
+            <Grid Grid.Row="3" Grid.Column="5">
+                <TextBlock x:Name="PropertyBox_Mixed1" Text="44100Hz 16Bit" Foreground="#404a58" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,6,0,0"/>
+                <TextBlock x:Name="PropertyBox_Mixed2" Text="320kbps MP3" Foreground="#404a58" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+            </Grid>
+            <DataGrid x:Name="BPMList" Background="Transparent" BorderBrush="Transparent" RowBackground="Transparent" Focusable="False" GridLinesVisibility="None" VerticalScrollBarVisibility="Disabled" Margin="0,10,0,30" Grid.Row="1" Grid.Column="7" Grid.RowSpan="2" Style="{DynamicResource DGHeaderStyle}" BeginningEdit="BPMList_BeginningEdit">
+                <DataGrid.Columns>
+                    <!--<DataGridTextColumn Width="2*" Header="文件" Binding="{Binding Name}"></DataGridTextColumn>-->
+                    <DataGridTextColumn Width="*" Header="Music BPM" Binding="{Binding BPM}" CanUserSort="False">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <TextBox x:Name="LogBox" Grid.Row="1" Background="#88fbfbfb" Visibility="Hidden" Opacity="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
+        <!--下-->
+        <Grid Grid.Row="2" Background="#f4f4f4">
+            <Border BorderThickness="0,2,0,0" BorderBrush="#ffffff"/>
+            <Border BorderThickness="0,1,0,0" BorderBrush="#e1e1e1"/>
+            <TextBlock x:Name="AboutBox" Margin="0,0,14,8" FontSize="12" Foreground="#a0a0a0" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+            <TextBlock x:Name="LogLable" Margin="14,0,0,8" FontSize="12" Foreground="#a0a0a0" Text="日志模式" VerticalAlignment="Bottom" HorizontalAlignment="Left" Visibility="{Binding ElementName=LogBox, Path=Visibility}" Opacity="{Binding ElementName=LogBox, Path=Opacity}"/>
+        </Grid>
+        <Grid x:Name="Description" Grid.Row="0" Grid.RowSpan="3" Visibility="Hidden">
+            <Grid PreviewMouseLeftButtonDown="Header_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="Header_PreviewMouseLeftButtonUp" Background="#4c000000"/>
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Height="280" Width="310" Background="#fbfbfb">
+                <Grid.OpacityMask>
+                    <DrawingBrush>
+                        <DrawingBrush.Drawing>
+                            <GeometryDrawing Brush="#ff000000">
+                                <GeometryDrawing.Geometry>
+                                    <RectangleGeometry RadiusX="3" RadiusY="3" Rect="0,0,310,280"/>
+                                </GeometryDrawing.Geometry>
+                            </GeometryDrawing>
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
+                </Grid.OpacityMask>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="37"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="55"/>
+                    </Grid.RowDefinitions>
+                    <Grid x:Name="CloseDescriptionBtn" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,4,0" PreviewMouseLeftButtonDown="CloseDescriptionBtn_PreviewMouseLeftButtonDown" Cursor="Hand">
+                        <Path Fill="#fbfbfb">
+                            <Path.Data>
+                                <PathGeometry>
+                                    <PathFigure IsClosed="True" StartPoint="13,0">
+                                        <ArcSegment Point="1,12" Size="12,12"/>
+                                        <ArcSegment Point="13,24" Size="12,12"/>
+                                        <LineSegment Point="19,24"/>
+                                        <ArcSegment Point="31,12" Size="12,12"/>
+                                        <ArcSegment Point="19,0" Size="12,12"/>
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Path.Data>
+                        </Path>
+                        <Path Fill="#bbbbbb" HorizontalAlignment="Left" Width="31">
+                            <Path.Data>
+                                <PathGeometry>
+                                    <PathFigure IsClosed="True" StartPoint="12,6">
+                                        <ArcSegment Point="10,8" Size="1,1"/>
+                                        <LineSegment Point="20,18"/>
+                                        <ArcSegment Point="22,16" Size="1,1"/>
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Path.Data>
+                        </Path>
+                        <Path Fill="#bbbbbb">
+                            <Path.Data>
+                                <PathGeometry>
+                                    <PathFigure IsClosed="True" StartPoint="22,8">
+                                        <ArcSegment Point="20,6" Size="1,1"/>
+                                        <LineSegment Point="10,16"/>
+                                        <ArcSegment Point="12,18" Size="1,1"/>
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Path.Data>
+                        </Path>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="120"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="20,0,20,0">
+                            <TextBlock Text="将单个或多个文件拖入软件的环形区域，即可进行相应的处理。" Foreground="#666666" TextWrapping="Wrap" FontSize="14" LineHeight="6"/>
+                            <TextBlock Text="输出文件与源文件在相同目录中。" Foreground="#666666" TextWrapping="Wrap" FontSize="14" LineHeight="6" Margin="0,40,0,0"/>
+                        </Grid>
+                        <Image Source="Icons\Description.png" Grid.Row="1" Stretch="None"/>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <CheckBox x:Name="DescriptionCkb" Content="不再显示该提示。" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" Foreground="#aaaaaa" BorderBrush="#aaaaaa" />
+                    </Grid>
+
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid x:Name="Initialization" Grid.Row="0" Grid.RowSpan="3" Visibility="Hidden">
+            <Grid PreviewMouseLeftButtonDown="Header_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="Header_PreviewMouseLeftButtonUp" Background="#4c000000"/>
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Height="80" Width="310" Background="#fbfbfb">
+                <Grid.OpacityMask>
+                    <DrawingBrush>
+                        <DrawingBrush.Drawing>
+                            <GeometryDrawing Brush="#ff000000">
+                                <GeometryDrawing.Geometry>
+                                    <RectangleGeometry RadiusX="3" RadiusY="3" Rect="0,0,310,80"/>
+                                </GeometryDrawing.Geometry>
+                            </GeometryDrawing>
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
+                </Grid.OpacityMask>
+                <TextBlock Text="正在初始化..." FontSize="30" Foreground="#666666" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
