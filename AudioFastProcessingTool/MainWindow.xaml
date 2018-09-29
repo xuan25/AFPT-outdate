@@ -334,8 +334,9 @@
             <TextBlock x:Name="AboutBox" Margin="0,0,14,8" FontSize="12" Foreground="#a0a0a0" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
             <TextBlock x:Name="LogLable" Margin="14,0,0,8" FontSize="12" Foreground="#a0a0a0" Text="日志模式" VerticalAlignment="Bottom" HorizontalAlignment="Left" Visibility="{Binding ElementName=LogBox, Path=Visibility}" Opacity="{Binding ElementName=LogBox, Path=Opacity}"/>
         </Grid>
+        <!--Discription-->
         <Grid x:Name="Description" Grid.Row="0" Grid.RowSpan="3" Visibility="Visible">
-            <Grid PreviewMouseLeftButtonDown="Header_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="Header_PreviewMouseLeftButtonUp" Background="#4c000000"/>
+            <Grid PreviewMouseLeftButtonDown="Header_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="Header_PreviewMouseLeftButtonUp" PreviewMouseMove="Header_PreviewMouseMove" Background="#4c000000"/>
             <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Height="280" Width="310" Background="#fbfbfb">
                 <Grid.OpacityMask>
                     <DrawingBrush>
@@ -409,8 +410,10 @@
                 </Grid>
             </Grid>
         </Grid>
+
+        <!--Initialization-->
         <Grid x:Name="Initialization" Grid.Row="0" Grid.RowSpan="3" Visibility="Visible">
-            <Grid PreviewMouseLeftButtonDown="Header_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="Header_PreviewMouseLeftButtonUp" Background="#4c000000"/>
+            <Grid PreviewMouseLeftButtonDown="Header_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="Header_PreviewMouseLeftButtonUp" PreviewMouseMove="Header_PreviewMouseMove" Background="#4c000000"/>
             <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Height="80" Width="310" Background="#fbfbfb">
                 <Grid.OpacityMask>
                     <DrawingBrush>
