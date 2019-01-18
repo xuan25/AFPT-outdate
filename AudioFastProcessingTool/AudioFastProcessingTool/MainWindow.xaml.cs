@@ -140,9 +140,9 @@ namespace AudioFastProcessingTool
                     if(!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\\Bin\\ffmpeg.exe"))
                     {
                         //Console.WriteLine(VerifyResource("gz.ffmpeg.exe"));
-                        if(VerifyResource("gz.ffmpeg.exe") == "93c97daed6a266c388c4335746941d40")
+                        if(VerifyResource("gz.ffmpeg.exe.gz") == "93c97daed6a266c388c4335746941d40")
                         {
-                            ExportResource(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\\Bin\\ffmpeg.exe", "gz.ffmpeg.exe");
+                            ExportResource(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\\Bin\\ffmpeg.exe", "gz.ffmpeg.exe.gz");
                         }
                         else
                         {
@@ -153,9 +153,9 @@ namespace AudioFastProcessingTool
                     if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\\Bin\\lame.exe"))
                     {
                         //Console.WriteLine(VerifyResource("gz.lame.exe"));
-                        if (VerifyResource("gz.lame.exe") == "eb3cd03670397c7d39973532ac3ef5d8")
+                        if (VerifyResource("gz.lame.exe.gz") == "eb3cd03670397c7d39973532ac3ef5d8")
                         {
-                            ExportResource(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\\Bin\\lame.exe", "gz.lame.exe");
+                            ExportResource(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\\Bin\\lame.exe", "gz.lame.exe.gz");
                         }
                         else
                         {

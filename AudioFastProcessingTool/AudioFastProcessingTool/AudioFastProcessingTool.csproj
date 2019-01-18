@@ -124,8 +124,8 @@
     <Resource Include="Icons\Vocal.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="gz\ffmpeg.exe" />
-    <EmbeddedResource Include="gz\lame.exe" />
+    <EmbeddedResource Include="gz\ffmpeg.exe.gz" />
+    <EmbeddedResource Include="gz\lame.exe.gz" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon.ico" />
