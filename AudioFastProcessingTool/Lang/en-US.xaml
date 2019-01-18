@@ -1,0 +1,20 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:AudioFastProcessingTool.Lang"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="AFPT">AFPT</sys:String>
+    <sys:String x:Key="Initializing...">Initializing...</sys:String>
+    <sys:String x:Key="Description1">Drag single or multiple files into the ring area for appropriate processing.</sys:String>
+    <sys:String x:Key="Description2">The output file will be in the same directory as the source file.</sys:String>
+    <sys:String x:Key="DescriptionCheck">Do not show this again</sys:String>
+    <sys:String x:Key="Voice">Voice</sys:String>
+    <sys:String x:Key="VoiceDescription1">44100Hz 16Bit</sys:String>
+    <sys:String x:Key="VoiceDescription2">Up to -6dB Mono</sys:String>
+    <sys:String x:Key="Instrument">Instrument</sys:String>
+    <sys:String x:Key="InstrumentDescription1">44100Hz 16Bit</sys:String>
+    <sys:String x:Key="InstrumentDescription2">Up to -6dB</sys:String>
+    <sys:String x:Key="Mixed">Mixed</sys:String>
+    <sys:String x:Key="MixedDescription1">44100Hz 16Bit</sys:String>
+    <sys:String x:Key="MixedDescription2">320kbps MP3</sys:String>
+    <sys:String x:Key="BpmList">Music BPM</sys:String>
+</ResourceDictionary>

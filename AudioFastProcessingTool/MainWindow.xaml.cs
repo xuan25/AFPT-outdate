@@ -110,7 +110,7 @@ namespace AudioFastProcessingTool
             return byte2String;
         }
 
-        static string logTitle = "[Version]  Function : HannDanngo  UI design : Ping Zi  Software : Xuan  |  Version 2.0\r\n";
+        static string logTitle = "[Version]  Function : HannDanngo  UI design : Ping Zi  Software : Xuan  |  Version 2.1\r\n";
         public MainWindow()
         {
             InitializeComponent();
@@ -120,30 +120,10 @@ namespace AudioFastProcessingTool
             Thread primaryThread = Thread.CurrentThread;
             primaryThread.Priority = ThreadPriority.Highest;
             //UI初始化
-            AboutBox.Text = "Version 2.0";
+            AboutBox.Text = "Version 2.1";
             Description.Visibility = Visibility.Hidden;
             Initialization.Visibility = Visibility.Hidden;
             ES = ES_REQUIRE.OFF;
-
-            //校验UI
-            Console.WriteLine(GetMD5(Encoding.Unicode.GetBytes(TitleBox.Text)));
-            if (GetMD5(Encoding.Unicode.GetBytes(TitleBox.Text)) != "95a9e3ea46d2ab1b16567b30e5202fd")
-            {
-                ProcessLog("VERIFICATION FAILED at  " + DateTime.Now.ToString());
-                Environment.Exit(0);
-            }
-            Console.WriteLine(GetMD5(Encoding.Unicode.GetBytes(AboutBox.Text)));
-            if (GetMD5(Encoding.Unicode.GetBytes(AboutBox.Text)) != "f7651aafd9f142cc1c5507c1f718f7c")
-            {
-                ProcessLog("VERIFICATION FAILED at  " + DateTime.Now.ToString());
-                Environment.Exit(0);
-            }
-            Console.WriteLine(GetMD5(Encoding.Unicode.GetBytes(logTitle)));
-            if (GetMD5(Encoding.Unicode.GetBytes(logTitle)) != "f5a79f0d029f4eed98ed13e8826b4f")
-            {
-                ProcessLog("VERIFICATION FAILED at  " + DateTime.Now.ToString());
-                Environment.Exit(0);
-            }
 
             //功能实例化
             P_Vocal = new ProcessClass(null, ProcessClass.ProcessMode.Vocal, 0, 0, "");

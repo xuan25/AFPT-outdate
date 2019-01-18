@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -62,6 +64,33 @@ namespace AudioFastProcessingTool
                     catch { }
                 }
                 i++;
+            }
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            LoadLang();
+        }
+
+        private void LoadLang()
+        {
+            List<ResourceDictionary> dictionaryList = new List<ResourceDictionary>();
+            foreach (ResourceDictionary dictionary in Application.Current.Resources.MergedDictionaries)
+            {
+                dictionaryList.Add(dictionary);
+            }
+            string requestedCulture = string.Format(@"Lang\{0}.xaml", System.Globalization.CultureInfo.CurrentCulture);
+            ResourceDictionary resourceDictionary = dictionaryList.FirstOrDefault(d => d.Source.OriginalString.Equals(requestedCulture));
+            if (resourceDictionary == null)
+            {
+                requestedCulture = @"Lang\en-US.xaml";
+                resourceDictionary = dictionaryList.FirstOrDefault(d => d.Source.OriginalString.Equals(requestedCulture));
+            }
+            if (resourceDictionary != null)
+            {
+                Application.Current.Resources.MergedDictionaries.Remove(resourceDictionary);
+                Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
             }
         }
     }

@@ -1,0 +1,20 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:AudioFastProcessingTool.Lang"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="AFPT">AFPT音频快速处理工具</sys:String>
+    <sys:String x:Key="Initializing...">正在初始化...</sys:String>
+    <sys:String x:Key="Description1">将单个或多个文件拖入软件的环形区域，即可进行相应的处理。</sys:String>
+    <sys:String x:Key="Description2">输出文件与源文件在相同目录中。</sys:String>
+    <sys:String x:Key="DescriptionCheck">不再显示该提示。</sys:String>
+    <sys:String x:Key="Voice">人声处理</sys:String>
+    <sys:String x:Key="VoiceDescription1">44100Hz 16Bit</sys:String>
+    <sys:String x:Key="VoiceDescription2">标准到-6dB 单声道</sys:String>
+    <sys:String x:Key="Instrument">伴奏处理</sys:String>
+    <sys:String x:Key="InstrumentDescription1">44100Hz 16Bit</sys:String>
+    <sys:String x:Key="InstrumentDescription2">标准到-6dB</sys:String>
+    <sys:String x:Key="Mixed">成品处理</sys:String>
+    <sys:String x:Key="MixedDescription1">44100Hz 16Bit</sys:String>
+    <sys:String x:Key="MixedDescription2">320kbps MP3</sys:String>
+    <sys:String x:Key="BpmList">伴奏BPM</sys:String>
+</ResourceDictionary>

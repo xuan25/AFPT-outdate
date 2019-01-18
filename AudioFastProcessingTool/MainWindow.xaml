@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AudioFastProcessingTool"
         mc:Ignorable="d"
-        Title="AFPT" Height="372" Width="852" MinHeight="372" MinWidth="852" Background="Transparent" AllowsTransparency="True" WindowStyle="None" Closing="Window_Closing" KeyDown="Window_KeyDown" Loaded="Window_Loaded" ResizeMode="CanResizeWithGrip" BorderThickness="16" StateChanged="Window_StateChanged">
+        Title="{StaticResource AFPT}" Height="372" Width="852" MinHeight="372" MinWidth="852" Background="Transparent" AllowsTransparency="True" WindowStyle="None" Closing="Window_Closing" KeyDown="Window_KeyDown" Loaded="Window_Loaded" ResizeMode="CanResizeWithGrip" BorderThickness="16" StateChanged="Window_StateChanged">
     <Window.Effect>
         <DropShadowEffect x:Name="DropShadow" ShadowDepth="1" BlurRadius="16" Direction="270" Opacity="0.5" Color="#FF211613"/>
     </Window.Effect>
@@ -147,7 +147,7 @@
         <!--上-->
         <Grid x:Name="Header" Background="#404a58" Grid.Row="0" PreviewMouseLeftButtonDown="Header_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="Header_PreviewMouseLeftButtonUp" PreviewMouseMove="Header_PreviewMouseMove">
             <Border BorderThickness="0,0,0,1" BorderBrush="#1c2736"/>
-            <TextBlock x:Name="TitleBox" Text="AFPT" Margin="18,13,0,0" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="#ffffff"/>
+            <TextBlock x:Name="TitleBox" Text="{StaticResource AFPT}" Margin="18,13,0,0" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="#ffffff"/>
             <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Height="24" Width="64" Margin="0,8,5,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -269,7 +269,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Image Source="Icons\Vocal.png" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="None"/>
-                    <TextBlock Text="Voice" FontSize="16" Foreground="#3134b9" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{StaticResource Voice}" FontSize="16" Foreground="#3134b9" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Grid>
             </Grid>
             <Grid x:Name="MusicGrid" Grid.Row="1" Grid.Column="3" PreviewDrop="MusicGrid_PreviewDrop" AllowDrop="True">
@@ -283,7 +283,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Image Source="Icons\Music.png" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="None"/>
-                    <TextBlock Text="Music" FontSize="16" Foreground="#71052d" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{StaticResource Instrument}" FontSize="16" Foreground="#71052d" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Grid>
             </Grid>
             <Grid x:Name="MixedGrid" Grid.Row="1" Grid.Column="5" PreviewDrop="MixedGrid_PreviewDrop" AllowDrop="True">
@@ -297,25 +297,25 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Image Source="Icons\Mixed.png" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="None"/>
-                    <TextBlock Text="Product" FontSize="16" Foreground="#673508" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{StaticResource Mixed}" FontSize="16" Foreground="#673508" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Grid>
             </Grid>
             <Grid Grid.Row="3" Grid.Column="1">
-                <TextBlock x:Name="PropertyBox_Vocal1" Text="44100Hz 16Bit" Foreground="#404a58" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,6,0,0"/>
-                <TextBlock Text="Up to -6dB Mono" Foreground="#404a58" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+                <TextBlock x:Name="PropertyBox_Vocal1" Text="{StaticResource VoiceDescription1}" Foreground="#404a58" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,6,0,0"/>
+                <TextBlock Text="{StaticResource VoiceDescription2}" Foreground="#404a58" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,20,0,0"/>
             </Grid>
             <Grid Grid.Row="3" Grid.Column="3">
-                <TextBlock x:Name="PropertyBox_Music1" Text="44100Hz 16Bit" Foreground="#404a58" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,6,0,0"/>
-                <TextBlock Text="Up to -6dB" Foreground="#404a58" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+                <TextBlock x:Name="PropertyBox_Music1" Text="{StaticResource InstrumentDescription1}" Foreground="#404a58" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,6,0,0"/>
+                <TextBlock Text="{StaticResource InstrumentDescription2}" Foreground="#404a58" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,20,0,0"/>
             </Grid>
             <Grid Grid.Row="3" Grid.Column="5">
-                <TextBlock x:Name="PropertyBox_Mixed1" Text="44100Hz 16Bit" Foreground="#404a58" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,6,0,0"/>
-                <TextBlock x:Name="PropertyBox_Mixed2" Text="320kbps MP3" Foreground="#404a58" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+                <TextBlock x:Name="PropertyBox_Mixed1" Text="{StaticResource MixedDescription1}" Foreground="#404a58" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,6,0,0"/>
+                <TextBlock x:Name="PropertyBox_Mixed2" Text="{StaticResource MixedDescription2}" Foreground="#404a58" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,20,0,0"/>
             </Grid>
             <DataGrid x:Name="BPMList" Background="Transparent" BorderBrush="Transparent" RowBackground="Transparent" Focusable="False" GridLinesVisibility="None" VerticalScrollBarVisibility="Disabled" Margin="0,10,0,30" Grid.Row="1" Grid.Column="7" Grid.RowSpan="2" Style="{DynamicResource DGHeaderStyle}" BeginningEdit="BPMList_BeginningEdit">
                 <DataGrid.Columns>
                     <!--<DataGridTextColumn Width="2*" Header="文件" Binding="{Binding Name}"></DataGridTextColumn>-->
-                    <DataGridTextColumn Width="*" Header="Music BPM" Binding="{Binding BPM}" CanUserSort="False">
+                    <DataGridTextColumn Width="*" Header="{StaticResource BpmList}" Binding="{Binding BPM}" CanUserSort="False">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="Background" Value="Transparent"/>
@@ -398,13 +398,13 @@
                             <RowDefinition Height="120"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0" Margin="20,0,20,0">
-                            <TextBlock Text="Drag single or multiple files into the ring area for appropriate processing." Foreground="#666666" TextWrapping="Wrap" FontSize="14" LineHeight="6"/>
-                            <TextBlock Text="The output file will be in the same directory as the source file." Foreground="#666666" TextWrapping="Wrap" FontSize="14" LineHeight="6" Margin="0,40,0,0"/>
+                            <TextBlock Text="{StaticResource Description1}" Foreground="#666666" TextWrapping="Wrap" FontSize="14" LineHeight="6"/>
+                            <TextBlock Text="{StaticResource Description2}" Foreground="#666666" TextWrapping="Wrap" FontSize="14" LineHeight="6" Margin="0,40,0,0"/>
                         </Grid>
                         <Image Source="Icons\Description.png" Grid.Row="1" Stretch="None"/>
                     </Grid>
                     <Grid Grid.Row="2">
-                        <CheckBox x:Name="DescriptionCkb" Content="Do not show this again" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" Foreground="#aaaaaa" BorderBrush="#aaaaaa" />
+                        <CheckBox x:Name="DescriptionCkb" Content="{StaticResource DescriptionCheck}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" Foreground="#aaaaaa" BorderBrush="#aaaaaa" />
                     </Grid>
 
                 </Grid>
@@ -426,7 +426,7 @@
                         </DrawingBrush.Drawing>
                     </DrawingBrush>
                 </Grid.OpacityMask>
-                <TextBlock Text="Initializing..." FontSize="30" Foreground="#666666" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="{StaticResource Initializing...}" FontSize="30" Foreground="#666666" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Grid>
         </Grid>
     </Grid>
