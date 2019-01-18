@@ -1,5 +1,11 @@
 ## AFPT版本记录
 
+#### V 2.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布日期：2019年1月18日
+
+并入了英文版本
+
+添加了将伴奏bpm插入文件名的功能
+
 
 #### V 2.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布日期：2018年9月16日
 
