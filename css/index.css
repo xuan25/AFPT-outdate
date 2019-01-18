@@ -1,0 +1,51 @@
+.sub-group input,
+.sub-group .button,
+#mc-embedded-subscribe {
+    display: inline-block !important;
+    margin: 10px;
+    font-size: 18px;
+    line-height: 1.6;
+    padding: 14px 22px;
+}
+
+.sub-group .button {
+    color: #fff !important;
+    background-color: #2a3333 !important;
+    border: 0;
+    width: inherit !important;
+}
+
+button:active,
+button:focus {
+    outline: none;
+}
+
+.windows-screen-img {
+    margin-top: 30px;
+    left:0;
+    right:0;
+    position:absolute;
+    width:100%;
+    text-align: center;
+    display:block;
+    cursor: default;
+}
+
+.windows-screen-img img:hover {
+    margin-top: 40px;
+}
+
+.windows-screen-img img {
+    width:80%;
+    max-width: 800px;
+    height:auto;
+    margin-top:80px;
+    -webkit-transition: 1s ease-in-out;
+    transition: 1s ease-in-out;
+}
+
+@media (min-width: 1370px) {
+    .windows-screen-img img {
+        max-width: 1000px;
+    }
+}

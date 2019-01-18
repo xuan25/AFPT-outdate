@@ -1,0 +1,67 @@
+<!--这是一个读取markdown文档的PHP-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width initial-scale=1'>
+    <style>
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+
+        @media (max-width: 767px) {
+            .markdown-body {
+            padding: 15px;
+        }
+    }
+    </style>
+    <title>AFPT版本记录</title>
+    <link rel="icon" href="../img/favicon-24.png" sizes="24x24">
+    <link rel="icon" href="../img/favicon-32.png" sizes="32x32">
+    <link rel="icon" href="../img/favicon-48.png" sizes="48x48">
+    <link rel="icon" href="../img/favicon-64.png" sizes="64x64">
+    <link rel="icon" href="../img/favicon-128.png" sizes="128x128">
+    <link rel="icon" href="../img/favicon-256.png" sizes="256x256">
+    <link rel="stylesheet" href="./css/github-markdown.css" type="text/css" />
+    <script type="text/javascript" src="./js/showdown.min.js"></script>
+    <script type="text/javascript" src="./js/finish.js"></script>
+</head>
+
+<body class="markdown-body">
+<div id="result" id='write'>正在载入...</div>
+<script type="text/javascript">
+
+  /*2.实例化ajax(兼容性方案)*/
+  var xmlhttp;
+  if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  }
+  else
+  {// code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+  /*4.当数据返回时进行转换*/
+  xmlhttp.onreadystatechange=function()
+  {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)  //如果数据返回成功
+    {
+      var text = xmlhttp.responseText;  //将取得数据赋值
+      var converter = new showdown.Converter();  //实例化md转换类
+      var html = converter.makeHtml(text);  //转换对象并赋值
+      document.getElementById("result").innerHTML = html;  //应用对象
+      finish();  //finish.js  格式修正&补充
+    }
+  }
+
+  /*3.发送异步请求*/
+  xmlhttp.open("GET","./md/AFPTUpdateLog.md",true);
+  xmlhttp.send();
+</script>
+</body>
+</html>
