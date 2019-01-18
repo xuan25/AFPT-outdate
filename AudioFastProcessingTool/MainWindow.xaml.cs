@@ -299,10 +299,16 @@ namespace AudioFastProcessingTool
             Thread AT = new Thread(delegate ()
             {
                 BPMAnalyzerCore AC = new BPMAnalyzerCore(path, 1);
+
+                string newPath = path.Substring(0, path.LastIndexOf('\\') + 1) + AC.results[0].bpm + " bpm" + path.Substring(path.LastIndexOf('\\') + 1 + "AFPT".Length);
+                File.Delete(newPath);
+                File.Move(path, newPath);
+
                 Dispatcher.Invoke(new Action(() =>
                 {
-                    BPMList.Items.Insert(0, new { Name = AC.results[0].path.Substring(AC.results[0].path.LastIndexOf('\\') + 1), BPM = AC.results[0].bpm });
+                    BPMList.Items.Insert(0, new { Name = newPath.Substring(AC.results[0].path.LastIndexOf('\\') + 1), BPM = AC.results[0].bpm });
                 }));
+                
             });
             AT.Start();
         }
