@@ -23,7 +23,7 @@ namespace AudioFastProcessingTool
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception ex = e.ExceptionObject as Exception;
-            MessageBox.Show("An unexpected and unrecoverable problem has occourred. Launcher will now exit.", "Unexpected operation", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("An unexpected and unrecoverable problem has occourred. Software will now exit.", "Unexpected operation", MessageBoxButton.OK, MessageBoxImage.Error);
             CrashLog("Non-UI thread exceptions : \n\n" + string.Format("Captured an unhandled exception：{0}\r\nException Message：{1}\r\nException StackTrace：{2}", ex.GetType(), ex.Message, ex.StackTrace));
             //MessageBox.Show("Non-UI thread exceptions : \n\n" + string.Format("Captured an unhandled exception：{0}\r\nException Message：{1}\r\nException StackTrace：{2}", ex.GetType(), ex.Message, ex.StackTrace));
             System.Environment.Exit(0);
