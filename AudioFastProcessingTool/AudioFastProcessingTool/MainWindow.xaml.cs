@@ -280,14 +280,25 @@ namespace AudioFastProcessingTool
             {
                 BPMAnalyzerCore AC = new BPMAnalyzerCore(path, 1);
 
-                string newPath = path.Substring(0, path.LastIndexOf('\\') + 1) + AC.results[0].bpm + " bpm" + path.Substring(path.LastIndexOf('\\') + 1 + "AFPT".Length);
-                File.Delete(newPath);
-                File.Move(path, newPath);
-
-                Dispatcher.Invoke(new Action(() =>
+                if(AC.results.Count != 0)
                 {
-                    BPMList.Items.Insert(0, new { Name = newPath.Substring(AC.results[0].path.LastIndexOf('\\') + 1), BPM = AC.results[0].bpm });
-                }));
+                    string newPath = path.Substring(0, path.LastIndexOf('\\') + 1) + AC.results[0].bpm + " bpm" + path.Substring(path.LastIndexOf('\\') + 1 + "AFPT".Length);
+                    File.Delete(newPath);
+                    File.Move(path, newPath);
+
+                    Dispatcher.Invoke(new Action(() =>
+                    {
+                        BPMList.Items.Insert(0, new { Name = newPath.Substring(AC.results[0].path.LastIndexOf('\\') + 1), BPM = AC.results[0].bpm });
+                    }));
+                }
+                else
+                {
+                    Dispatcher.Invoke(new Action(() =>
+                    {
+                        BPMList.Items.Insert(0, new { Name = path.Substring(path.LastIndexOf('\\') + 1), BPM = "-" });
+                    }));
+                }
+                
                 
             });
             AT.Start();
