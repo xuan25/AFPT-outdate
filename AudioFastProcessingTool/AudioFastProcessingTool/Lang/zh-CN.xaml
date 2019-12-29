@@ -8,13 +8,13 @@
     <sys:String x:Key="Description2">输出文件与源文件在相同目录中。</sys:String>
     <sys:String x:Key="DescriptionCheck">不再显示该提示。</sys:String>
     <sys:String x:Key="Voice">人声处理</sys:String>
-    <sys:String x:Key="VoiceDescription1">44100Hz 16Bit</sys:String>
+    <sys:String x:Key="VoiceDescription1">48000Hz 24Bit</sys:String>
     <sys:String x:Key="VoiceDescription2">标准到-6dB 单声道</sys:String>
     <sys:String x:Key="Instrument">伴奏处理</sys:String>
-    <sys:String x:Key="InstrumentDescription1">44100Hz 16Bit</sys:String>
+    <sys:String x:Key="InstrumentDescription1">48000Hz 24Bit</sys:String>
     <sys:String x:Key="InstrumentDescription2">标准到-6dB</sys:String>
     <sys:String x:Key="Mixed">成品处理</sys:String>
-    <sys:String x:Key="MixedDescription1">44100Hz 16Bit</sys:String>
+    <sys:String x:Key="MixedDescription1">48000Hz 24Bit</sys:String>
     <sys:String x:Key="MixedDescription2">320kbps MP3</sys:String>
     <sys:String x:Key="BpmList">伴奏BPM</sys:String>
 </ResourceDictionary>

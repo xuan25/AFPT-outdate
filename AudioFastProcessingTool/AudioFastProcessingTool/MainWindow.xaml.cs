@@ -227,7 +227,7 @@ namespace AudioFastProcessingTool
             Sys_ProcessOn();
             VocalGrid.AllowDrop = false;
             Array pathArr = (Array)e.Data.GetData(DataFormats.FileDrop);
-            P_Vocal = new ProcessClass(pathArr, ProcessClass.ProcessMode.Vocal, 44100, 0, "");
+            P_Vocal = new ProcessClass(pathArr, ProcessClass.ProcessMode.Vocal, 48000, 0, "");
             P_Vocal.OutputReceived += P_Vocal_OutputReceivedEvent;
             P_Vocal.ProcessExited += Sys_ProcessOff;
             P_Vocal.ProgressUpdate += P_Vocal_ProgressUpdate;
@@ -262,7 +262,7 @@ namespace AudioFastProcessingTool
             Sys_ProcessOn();
             MusicGrid.AllowDrop = false;
             Array pathArr = (Array)e.Data.GetData(DataFormats.FileDrop);
-            P_Music = new ProcessClass(pathArr, ProcessClass.ProcessMode.Music, 44100, 0, "");
+            P_Music = new ProcessClass(pathArr, ProcessClass.ProcessMode.Music, 48000, 0, "");
             P_Music.OutputReceived += P_Music_OutputReceivedEvent;
             P_Music.ProcessExited += Sys_ProcessOff;
             P_Music.ProgressUpdate += P_Music_ProgressUpdate;
@@ -332,7 +332,7 @@ namespace AudioFastProcessingTool
             Sys_ProcessOn();
             MixedGrid.AllowDrop = false;
             Array pathArr = (Array)e.Data.GetData(DataFormats.FileDrop);
-            P_Mixed = new ProcessClass(pathArr, ProcessClass.ProcessMode.Mixed, 44100, 320, "mp3");
+            P_Mixed = new ProcessClass(pathArr, ProcessClass.ProcessMode.Mixed, 48000, 320, "mp3");
             P_Mixed.OutputReceived += P_Mixed_OutputReceived;
             P_Mixed.ProcessExited += Sys_ProcessOff;
             P_Mixed.ProgressUpdate += P_Mixed_ProgressUpdate;

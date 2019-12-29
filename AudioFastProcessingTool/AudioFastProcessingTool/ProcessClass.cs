@@ -190,21 +190,21 @@ namespace AudioFastProcessingTool
 
             double? volume = 0 - max_volume - 6;
 
-            CMD = "cd \"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\" && .\\Bin\\ffmpeg -y -i \"" + Path + "\" -vn -sn -ar " + SR + " -af \"volume=" + volume + "dB\" -c:a pcm_s16le -f wav -map_channel 0.0.0 \"" + Folder + "AFPT_" + FileName + "_L.wav\" -map_channel 0.0.1 \"" + Folder + "AFPT_" + FileName + "_R.wav\"";
+            CMD = "cd \"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\" && .\\Bin\\ffmpeg -y -i \"" + Path + "\" -vn -sn -ar " + SR + " -af \"volume=" + volume + "dB\" -c:a pcm_s24le -f wav -map_channel 0.0.0 \"" + Folder + "AFPT_" + FileName + "_L.wav\" -map_channel 0.0.1 \"" + Folder + "AFPT_" + FileName + "_R.wav\"";
             OutputReceived("Command - " + CMD);
             CreateProcess("cmd.exe", "/c " + CMD);  //coding
 
             if (video)
             {
                 File.Delete(Folder + "AFPT_" + FileName + "_L.wav");
-                CMD = "cd \"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\" && .\\Bin\\ffmpeg -y -i \"" + Path + "\" -vn -sn -ar " + SR + " -af \"volume=" + volume + "dB\" -c:a pcm_s16le -f wav -map_channel 0.1.0 \"" + Folder + "AFPT_" + FileName + "_L.wav\" -map_channel 0.1.1 \"" + Folder + "AFPT_" + FileName + "_R.wav\""; OutputReceived("Command - " + CMD);
+                CMD = "cd \"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\" && .\\Bin\\ffmpeg -y -i \"" + Path + "\" -vn -sn -ar " + SR + " -af \"volume=" + volume + "dB\" -c:a pcm_s24le -f wav -map_channel 0.1.0 \"" + Folder + "AFPT_" + FileName + "_L.wav\" -map_channel 0.1.1 \"" + Folder + "AFPT_" + FileName + "_R.wav\""; OutputReceived("Command - " + CMD);
                 OutputReceived("Command - " + CMD);
                 CreateProcess("cmd.exe", "/c " + CMD);  //coding
 
                 if (invalid)
                 {
                     File.Delete(Folder + "AFPT_" + FileName + "_L.wav");
-                    CMD = "cd \"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\" && .\\Bin\\ffmpeg -y -i \"" + Path + "\" -vn -sn -ar " + SR + " -af \"volume=" + volume + "dB\" -c:a pcm_s16le -f wav -map_channel 0.1.0 \"" + Folder + "AFPT_" + FileName + "_M.wav\"";
+                    CMD = "cd \"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\" && .\\Bin\\ffmpeg -y -i \"" + Path + "\" -vn -sn -ar " + SR + " -af \"volume=" + volume + "dB\" -c:a pcm_s24le -f wav -map_channel 0.1.0 \"" + Folder + "AFPT_" + FileName + "_M.wav\"";
                     OutputReceived("Command - " + CMD);
                     CreateProcess("cmd.exe", "/c " + CMD);  //coding
 
@@ -220,7 +220,7 @@ namespace AudioFastProcessingTool
             else if (invalid)
             {
                 File.Delete(Folder + "AFPT_" + FileName + "_L.wav");
-                CMD = "cd \"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\" && .\\Bin\\ffmpeg -y -i \"" + Path + "\" -vn -sn -ar " + SR + " -af \"volume=" + volume + "dB\" -c:a pcm_s16le -f wav -map_channel 0.0.0 \"" + Folder + "AFPT_" + FileName + "_M.wav\"";
+                CMD = "cd \"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\" && .\\Bin\\ffmpeg -y -i \"" + Path + "\" -vn -sn -ar " + SR + " -af \"volume=" + volume + "dB\" -c:a pcm_s24le -f wav -map_channel 0.0.0 \"" + Folder + "AFPT_" + FileName + "_M.wav\"";
                 OutputReceived("Command - " + CMD);
                 CreateProcess("cmd.exe", "/c " + CMD);  //coding
 
@@ -256,7 +256,7 @@ namespace AudioFastProcessingTool
 
             double? volume = 0 - max_volume - 6;
 
-            CMD = "cd \"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\" && .\\Bin\\ffmpeg -y -i \"" + Path + "\" -vn -sn -ar " + SR + " -af \"volume=" + volume + "dB\" -c:a pcm_s16le -f wav \"" + Folder + "AFPT_" + FileName + "_S.wav\"";
+            CMD = "cd \"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\" && .\\Bin\\ffmpeg -y -i \"" + Path + "\" -vn -sn -ar " + SR + " -af \"volume=" + volume + "dB\" -c:a pcm_s24le -f wav \"" + Folder + "AFPT_" + FileName + "_S.wav\"";
             OutputReceived("Command - " + CMD);
             CreateProcess("cmd.exe", "/c " + CMD);  //coding
 
@@ -283,11 +283,11 @@ namespace AudioFastProcessingTool
 
             if(FM.ToUpper() == "MP3")
             {
-                CMD = "cd \"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\" && .\\Bin\\ffmpeg -y -i \"" + Path + "\" -vn -sn -ar " + SR + " -c:a pcm_s16le -f wav pipe: | .\\bin\\lame -b " + CR + " -p - \"" + Folder + "AFPT_" + FileName + "." + FM + "\"";
+                CMD = "cd \"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\" && .\\Bin\\ffmpeg -y -i \"" + Path + "\" -vn -sn -ar " + SR + " -c:a pcm_s24le -f wav pipe: | .\\bin\\lame -b " + CR + " -p - \"" + Folder + "AFPT_" + FileName + "." + FM + "\"";
             }
             else
             {
-                CMD = "cd \"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\" && .\\Bin\\ffmpeg -y -i \"" + Path + "\" -vn -sn -ar " + SR + " -c:a pcm_s16le -f wav pipe: | .\\bin\\neroAacEnc -ignorelength -cbr " + CR * 1000 + " -if - -of \"" + Folder + "AFPT_" + FileName + "." + FM + "\"";
+                CMD = "cd \"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\" && .\\Bin\\ffmpeg -y -i \"" + Path + "\" -vn -sn -ar " + SR + " -c:a pcm_s24le -f wav pipe: | .\\bin\\neroAacEnc -ignorelength -cbr " + CR * 1000 + " -if - -of \"" + Folder + "AFPT_" + FileName + "." + FM + "\"";
             }
             OutputReceived("Command - " + CMD);
             CreateProcess("cmd.exe", "/c " + CMD);  //coding
