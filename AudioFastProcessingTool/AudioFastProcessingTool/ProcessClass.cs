@@ -276,23 +276,33 @@ namespace AudioFastProcessingTool
 
             string Folder = Path.ToString().Substring(0, Path.ToString().LastIndexOf("\\") + 1);
             string FileName = Path.ToString().Substring(Path.ToString().LastIndexOf("\\") + 1);
+            string Extension = string.Empty;
             if (FileName.LastIndexOf(".") != -1)
             {
+                Extension = FileName.Substring(FileName.LastIndexOf(".")+1);
                 FileName = FileName.Substring(0, FileName.LastIndexOf("."));
+            }
+
+            string OutFilePath = Folder + FileName + "." + FM;
+            int i = 1;
+            while (File.Exists(OutFilePath))
+            {
+                OutFilePath = Folder + FileName + " (" + i + ")." + FM;
+                i++;
             }
 
             if(FM.ToUpper() == "MP3")
             {
-                CMD = "cd \"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\" && .\\Bin\\ffmpeg -y -i \"" + Path + "\" -vn -sn -ar " + SR + " -c:a pcm_s16le -f wav pipe: | .\\bin\\lame -b " + CR + " -p - \"" + Folder + "AFPT_" + FileName + "." + FM + "\"";
+                CMD = "cd \"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\" && .\\Bin\\ffmpeg -y -i \"" + Path + "\" -vn -sn -ar " + SR + " -c:a pcm_s16le -f wav pipe: | .\\bin\\lame -b " + CR + " -p - \"" + OutFilePath + "\"";
             }
             else
             {
-                CMD = "cd \"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\" && .\\Bin\\ffmpeg -y -i \"" + Path + "\" -vn -sn -ar " + SR + " -c:a pcm_s16le -f wav pipe: | .\\bin\\neroAacEnc -ignorelength -cbr " + CR * 1000 + " -if - -of \"" + Folder + "AFPT_" + FileName + "." + FM + "\"";
+                CMD = "cd \"" + Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\AFPT\" && .\\Bin\\ffmpeg -y -i \"" + Path + "\" -vn -sn -ar " + SR + " -c:a pcm_s16le -f wav pipe: | .\\bin\\neroAacEnc -ignorelength -cbr " + CR * 1000 + " -if - -of \"" + OutFilePath + "\"";
             }
             OutputReceived("Command - " + CMD);
             CreateProcess("cmd.exe", "/c " + CMD);  //coding
 
-            FileFinished?.Invoke(Folder + "AFPT_" + FileName + "." + FM);
+            FileFinished?.Invoke(Folder + FileName + "." + FM);
 
         }
     }
