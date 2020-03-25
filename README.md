@@ -1,3 +1,4 @@
+# ## **Warning : This is an outdated version of AFPT**
 # AFPT-EN
 ## [Introduction]
 AFPT is a fast processing tool for vocal post-processing. When the producer receives the accompaniment and vocal original files, sometimes the file format is inconvenient to handle, the volume is too small, or the music speed is not marked. The purpose of AFPT is to help producers solve these problems quickly and easily.
